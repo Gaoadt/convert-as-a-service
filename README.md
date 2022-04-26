@@ -6,7 +6,7 @@ The goal of the repo is to provide ConveRT context embeddings via HTTP API
 ## Running
 
 ```sh
-docker run --rm -p 5000:5000 ghcr.io/gaodt/convert-as-a-service
+docker run --rm -p5000:5000 ghcr.io/gaoadt/convert-as-a-service
 ```
 
 ## Usage
