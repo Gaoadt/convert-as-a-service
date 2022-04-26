@@ -48,4 +48,5 @@ class ConvertService:
         )[0]
 
     def encode_responses(self, texts):
-        return self.sess.run(self.response_encoding_tensor, feed_dict={self.responce_text_placeholder: texts})
+        return self.sess.run(self.response_encoding_tensor, feed_dict={self.response_text_placeholder: texts})
+

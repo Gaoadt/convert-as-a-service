@@ -11,9 +11,9 @@ convert_lock = Lock()
 app = Flask(__name__)
 
 
-# Convert embedding builder
-@app.route("/convert", methods=["POST", "GET"])
-def convert_route():
+# Convert context embedding builder
+@app.route("/context", methods=["POST", "GET"])
+def context():
     try:
         dialogues = request.get_json(force=True)
         result = []
@@ -34,5 +34,25 @@ def convert_route():
             "message": "Error: '{}'".format(ex),
             "data": None
         })
-    print(dialogues)
-    return jsonify(["ok"])
+
+
+# Convert response embedding builder
+@app.route("/response", methods=["POST", "GET"])
+def response():
+    try:
+        responses = request.get_json(force=True)
+        with convert_lock:
+            result = convert.encode_responses(responses).tolist()
+
+        return jsonify({
+            "code": 0,
+            "message": "ok",
+            "data": result
+        })
+
+    except Exception as ex:
+        return jsonify({
+            "code": 1,
+            "message": "Error: '{}'".format(ex),
+            "data": None
+        })
